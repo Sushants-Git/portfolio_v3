@@ -29,8 +29,7 @@ function DejaVu() {
                 </li>
                 <li>Tech - Transformers.js, Chrome extension </li>
                 <li>
-                    Links -{" "}
-                    <span className="highlight-color">
+                    <span className="highlight-color flex gap-2">
                         <Link
                             name="Video"
                             href="https://www.youtube.com/watch?v=1E9y_XeGhkY"
@@ -63,8 +62,7 @@ function Locus() {
                 </li>
                 <li>Tech - Tauri, Rust, React, Linux</li>
                 <li>
-                    Links -{" "}
-                    <span className="highlight-color">
+                    <span className="highlight-color flex gap-2">
                         <Link
                             name="Video"
                             href="https://www.youtube.com/watch?v=qW-37O67yW0"
@@ -108,8 +106,7 @@ function Naash() {
                 </li>
                 <li>Tech - Node.js, CLI, AI</li>
                 <li>
-                    Links -{" "}
-                    <span className="highlight-color">
+                    <span className="highlight-color flex gap-2">
                         <Link
                             name="Video"
                             href="https://www.youtube.com/watch?v=6xZ1Gxxiu1U"
