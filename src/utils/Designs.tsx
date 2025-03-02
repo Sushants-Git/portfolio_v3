@@ -3,7 +3,12 @@ import { useState } from "react";
 export default function Designs({ designImages }: DesignProp) {
     return (
         <>
-            <h1 className="text-2xl font-bold">Designs</h1>
+            <h1>
+                <span className="text-base font-semibold">Designs</span>
+                <sup className="select-none text-muted-foreground text-xs ml-1">
+                    (3)
+                </sup>
+            </h1>
             <section className="flex flex-col gap-6 mt-6">
                 <Design designImages={designImages} />
             </section>

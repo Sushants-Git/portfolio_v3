@@ -6,15 +6,15 @@ import Projects from "./utils/Projects";
 
 function App() {
     return (
-        <section className="font-lexend  text-lexend-grey mx-auto max-w-3xl px-6 pb-24 pt-24 text-base/[150%] sm:pb-32 lg:px-10">
+        <section className="font-geist-mono text-lexend-grey mx-auto max-w-3xl px-6 pb-24 pt-24 text-base/[150%] sm:pb-32 lg:px-10">
             <Intro />
-            <section className="mt-14">
+            <section className="mt-10">
                 <Projects />
             </section>
-            <section className="mt-14">
+            <section className="mt-10">
                 <Designs designImages={designImages} />
             </section>
-            <section className="mt-20">
+            <section className="mt-14">
                 <Footer />
             </section>
         </section>

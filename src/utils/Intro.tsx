@@ -1,27 +1,54 @@
-import { links } from "./constants/links";
+import { AttachFileIcon } from "../links/attach";
+import { GithubIcon } from "../links/github";
+import { LinkedinIcon } from "../links/linkedin";
+import { AtSignIcon } from "../links/mail";
+import { TwitterIcon } from "../links/twitter";
 import Link from "./Link";
+import LinkIcon from "./LinksIcon";
 
 export default function Intro() {
     return (
         <section>
-            <h1 className="text-2xl font-bold">Sushant Mishra</h1>
-            <section className="flex gap-4 mt-1 text-sm font-geist-mono highlight-color">
-                {links.map((link) => (
-                    <Link key={link.name} href={link.href} name={link.name} />
-                ))}
+            <h1 className="text-base font-semibold">Sushant Mishra</h1>
+            <h1 className="text-sm">[mr. professional bug writer]</h1>
+            <section className="flex gap-0.5 text-sm font-geist-mono highlight-color mt-0.5">
+                <LinkIcon
+                    href="https://github.com/Sushants-Git"
+                    text="Github |"
+                >
+                    <GithubIcon size={15} className="pl-0" />
+                </LinkIcon>
+
+                <LinkIcon href="https://x.com/sushantstwt" text="Twitter |">
+                    <TwitterIcon size={15} />
+                </LinkIcon>
+
+                <LinkIcon href="mailto:sushantsgml@gmail.com" text="Mail |">
+                    <AtSignIcon size={15} />
+                </LinkIcon>
+
+                <LinkIcon
+                    href="https://www.linkedin.com/in/sushants-li/"
+                    text="LinkedIn |"
+                >
+                    <LinkedinIcon size={15} />
+                </LinkIcon>
+
+                <LinkIcon href="https://drive.google.com/file/d/1_Uo8pYHEoMMToxWTusjjn189Av2WvY4k/view?usp=sharing" text="Resume">
+                    <AttachFileIcon size={15} />
+                </LinkIcon>
             </section>
-            <section className="mt-4 text-[16px]">
+
+            <section className="mt-6 text-sm">
                 21, Software Engineer & Designer.
             </section>
-            <section className="mt-3 text-[16px] text-justify">
-                I’m a full-stack developer from Telangana, India, building web
-                and desktop applications. At my previous internship at{" "}
+            <section className="mt-3 text-sm text-pretty">
+                I am a full-stack developer. Building web and desktop
+                applications. Currently, i write and fix bugs at{" "}
                 <span className="highlight-color">
-                    <Link href="https://garden.finance/" name="Garden fi" />
+                    <Link href="https://getswipe.in/" name="Swipe (YC 21)" />
                 </span>
-                , I worked majorly on AWS and backend systems, focusing on
-                writing robust and type-safe solutions. When I’m not coding, I
-                enjoy working on design.
+                . When I’m not writing bugs, I like to design.
             </section>
         </section>
     );
