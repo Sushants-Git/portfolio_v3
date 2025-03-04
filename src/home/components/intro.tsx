@@ -1,10 +1,10 @@
-import { AttachFileIcon } from "../links/attach";
-import { GithubIcon } from "../links/github";
-import { LinkedinIcon } from "../links/linkedin";
-import { AtSignIcon } from "../links/mail";
-import { TwitterIcon } from "../links/twitter";
-import Link from "./Link";
-import LinkIcon from "./LinksIcon";
+import Link from "../../utils/link";
+import LinkIcon from "../../utils/links-icon";
+import { AttachFileIcon } from "../../icons/attach";
+import { GithubIcon } from "../../icons/github";
+import { LinkedinIcon } from "../../icons/linkedin";
+import { AtSignIcon } from "../../icons/mail";
+import { TwitterIcon } from "../../icons/twitter";
 
 export default function Intro() {
     return (
@@ -34,7 +34,10 @@ export default function Intro() {
                     <LinkedinIcon size={15} />
                 </LinkIcon>
 
-                <LinkIcon href="https://drive.google.com/file/d/1_Uo8pYHEoMMToxWTusjjn189Av2WvY4k/view?usp=sharing" text="Resume">
+                <LinkIcon
+                    href="https://drive.google.com/file/d/1_Uo8pYHEoMMToxWTusjjn189Av2WvY4k/view?usp=sharing"
+                    text="Resume"
+                >
                     <AttachFileIcon size={15} />
                 </LinkIcon>
             </section>

@@ -1,7 +1,7 @@
-import { GithubIcon } from "../links/github";
-import { ClapIcon } from "../links/video";
-import Link from "./Link";
-import LinkIcon from "./LinksIcon";
+import LinkIcon from "../../utils/links-icon";
+import Link from "../../utils/link";
+import { ClapIcon } from "../../icons/video";
+import { GithubIcon } from "../../icons/github";
 
 export default function Projects() {
     return (

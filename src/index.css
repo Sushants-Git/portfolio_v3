@@ -11,10 +11,27 @@
 }
 
 .muted-image {
-  filter: grayscale(70%);
-  transition: filter 0.3s ease;
+    filter: grayscale(70%);
+    transition: filter 0.3s ease;
 }
 
 .muted-image:hover {
-  filter: grayscale(0%);
+    filter: grayscale(0%);
+}
+
+.parsed-text {
+
+}
+
+.shadow-tooltip {
+    --ds-shadow-border: 0 0 0 1px rgba(0, 0, 0, 0.08);
+    --ds-shadow-tooltip: var(--ds-shadow-border),
+        0px 1px 1px rgba(0, 0, 0, 0.02), 0px 4px 8px rgba(0, 0, 0, 0.04);
+    --tw-shadow: var(--ds-shadow-tooltip);
+    --tw-shadow-colored: var(--ds-shadow-tooltip);
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+        var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
