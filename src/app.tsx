@@ -22,7 +22,7 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/learning" element={<Learning />} />
                         <Route path="/fun" element={<Fun />} />
-                        <Route path="/data_entry" element={<DataEntry />} />
+                        <Route path="/data-entry" element={<DataEntry />} />
                     </Routes>
                 </Layout>
             </QueryClientProvider>
