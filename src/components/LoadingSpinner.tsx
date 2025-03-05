@@ -36,7 +36,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
         return () => clearInterval(interval);
     }, []);
 
-    const { animation, state } = frames[frameIndex];
+    const { animation } = frames[frameIndex];
     const color = "text-lili-red";
 
     return (
