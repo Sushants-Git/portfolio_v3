@@ -3,6 +3,7 @@ import { supabase } from "../supabase-config";
 import Box from "../utils/box";
 import React from "react";
 import { DateGrouper, Row } from "../utils/fn";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const mapTypeToTitle = {
     music: "Music",
@@ -18,8 +19,17 @@ Object.entries(mapTypeToTitle).forEach(([type, title]) => {
 
 const order = Object.keys(mapTypeToTitle);
 
+const sleep = () => {
+    return new Promise((res) => {
+        setTimeout(() => {
+            res(null);
+        }, 1000);
+    });
+};
+
 async function fetch_data() {
     const response = await supabase.rpc("get_latest_5_days_per_type");
+    await sleep();
     return response.data as any[];
 }
 
@@ -62,6 +72,17 @@ function Fun() {
             </section>
         );
     }, [query.data]);
+
+    if (query.isLoading) {
+        return (
+            <section className="font-geist-mono text-lexend-grey mx-auto max-w-3xl px-6 pb-24 text-base/[150%] sm:pb-32 lg:px-10">
+                <LoadingSpinner
+                    text="Fetching fun details..."
+                    className="justify-center"
+                />
+            </section>
+        );
+    }
 
     return (
         <section className="font-geist-mono text-lexend-grey mx-auto max-w-3xl px-6 pb-24 text-base/[150%] sm:pb-32 lg:px-10">
