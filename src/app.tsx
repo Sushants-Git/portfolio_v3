@@ -47,7 +47,7 @@ function Nav() {
     };
 
     return (
-        <div className="font-geist-mono w-max rounded-xl flex text-lili-red shadow-tooltip mt-16 mb-16 ml-auto mr-auto">
+        <div className="font-geist-mono w-max rounded-xl flex text-lili-red shadow-tooltip my-12 md:my-16 ml-auto mr-auto">
             <HomeIcon size={15} onClick={() => handleClick("/")} />
             <BookTextIcon size={15} onClick={() => handleClick("/learning")} />
             <AudioLinesIcon size={15} onClick={() => handleClick("/fun")} />
