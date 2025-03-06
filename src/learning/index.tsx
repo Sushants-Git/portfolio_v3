@@ -15,7 +15,7 @@ const sleep = () => {
 
 
 async function fetch_data() {
-    const response = await supabase.from("learning").select();
+    const response = await supabase.from("learning").select().order("record_time", {ascending: false});
     await sleep();
     return response.data;
 }

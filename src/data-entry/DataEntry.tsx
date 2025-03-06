@@ -10,7 +10,10 @@ type Entry = {
 };
 
 async function fetchEntries(table: string) {
-    const { data, error } = await supabase.from(table).select().order('record_time', { ascending: false });
+    const { data, error } = await supabase
+        .from(table)
+        .select()
+        .order("record_time", { ascending: false });
     if (error) throw new Error(error.message);
     return data;
 }
@@ -21,17 +24,29 @@ async function addEntry(table: string, entry: string, type?: string) {
     let error;
 
     if (table === "info") {
-        ({ data, error } = await supabase.from(table).insert([{ type, data: entry, record_time }]));
+        ({ data, error } = await supabase
+            .from(table)
+            .insert([{ type, data: entry, record_time }]));
     } else {
-        ({ data, error } = await supabase.from(table).insert([{ data: entry, record_time }]));
+        ({ data, error } = await supabase
+            .from(table)
+            .insert([{ data: entry, record_time }]));
     }
 
     if (error) throw new Error(error.message);
     return data;
 }
 
-async function updateEntry(table: string, id: number, entry: string, type?: string) {
-    const { data, error } = await supabase.from(table).update({ data: entry, type }).eq("id", id);
+async function updateEntry(
+    table: string,
+    id: number,
+    entry: string,
+    type?: string
+) {
+    const { data, error } = await supabase
+        .from(table)
+        .update({ data: entry, type })
+        .eq("id", id);
     if (error) throw new Error(error.message);
     return data;
 }
@@ -47,32 +62,46 @@ function DataEntry() {
     const [newEntry, setNewEntry] = useState("");
     const [entryType, setEntryType] = useState("music");
     const [editingEntry, setEditingEntry] = useState<Entry | null>(null);
-    const [currentTable, setCurrentTable] = useState<"info" | "learning">("info");
+    const [currentTable, setCurrentTable] = useState<"info" | "learning">(
+        "info"
+    );
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
     const { data: infoData } = useQuery({
         queryKey: ["infoEntries"],
-        queryFn: () => fetchEntries("info")
+        queryFn: () => fetchEntries("info"),
     });
     const { data: learningData } = useQuery({
-        queryKey: ["learningEntries"], 
-        queryFn: () => fetchEntries("learning")
+        queryKey: ["learningEntries"],
+        queryFn: () => fetchEntries("learning"),
     });
 
     const addMutation = useMutation({
         mutationFn: (entry: string) => addEntry(currentTable, entry, entryType),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [`${currentTable}Entries`] });
+            queryClient.invalidateQueries({
+                queryKey: [`${currentTable}Entries`],
+            });
             setNewEntry("");
         },
     });
 
     const updateMutation = useMutation({
-        mutationFn: ({ id, entry, type }: { id: number; entry: string; type?: string }) => updateEntry(currentTable, id, entry, type),
+        mutationFn: ({
+            id,
+            entry,
+            type,
+        }: {
+            id: number;
+            entry: string;
+            type?: string;
+        }) => updateEntry(currentTable, id, entry, type),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [`${currentTable}Entries`] });
+            queryClient.invalidateQueries({
+                queryKey: [`${currentTable}Entries`],
+            });
             setEditingEntry(null);
         },
     });
@@ -80,19 +109,25 @@ function DataEntry() {
     const deleteMutation = useMutation({
         mutationFn: (id: number) => deleteEntry(currentTable, id),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [`${currentTable}Entries`] });
+            queryClient.invalidateQueries({
+                queryKey: [`${currentTable}Entries`],
+            });
         },
     });
 
     const handleAdd = () => {
-        if (newEntry) {
-            addMutation.mutate(newEntry);
+        if (newEntry.trim()) {
+            addMutation.mutate(newEntry.trim());
         }
     };
 
     const handleUpdate = () => {
         if (editingEntry) {
-            updateMutation.mutate({ id: editingEntry.id, entry: editingEntry.data, type: editingEntry.type });
+            updateMutation.mutate({
+                id: editingEntry.id,
+                entry: editingEntry.data.trim(),
+                type: editingEntry.type,
+            });
         }
     };
 
@@ -124,8 +159,8 @@ function DataEntry() {
                             placeholder="Enter password"
                             className="border p-2 mr-2 w-full sm:w-auto"
                         />
-                        <button 
-                            type="submit" 
+                        <button
+                            type="submit"
                             className="bg-blue-500 text-white px-4 py-2"
                         >
                             Submit
@@ -159,7 +194,11 @@ function DataEntry() {
             {currentTable === "info" && (
                 <div className="mb-4">
                     <label className="mr-2">Type:</label>
-                    <select value={entryType} onChange={(e) => setEntryType(e.target.value)} className="border p-2 mr-2">
+                    <select
+                        value={entryType}
+                        onChange={(e) => setEntryType(e.target.value)}
+                        className="border p-2 mr-2"
+                    >
                         <option value="music">Music</option>
                         <option value="anime">Anime & Manga</option>
                         <option value="video">Video</option>
@@ -167,51 +206,89 @@ function DataEntry() {
                 </div>
             )}
             <div className="mb-4">
-                <input
-                    type="text"
+                <textarea
                     value={newEntry}
                     onChange={(e) => setNewEntry(e.target.value)}
                     placeholder={`New entry for ${currentTable}`}
-                    className="border p-2 mr-2 w-full sm:w-auto"
+                    className="border p-2 mr-2 w-full"
+                    rows={4}
                 />
-                <button onClick={handleAdd} className="bg-green-500 text-white px-4 py-2">Add</button>
+                <button
+                    onClick={handleAdd}
+                    className="bg-green-500 text-white px-4 py-2"
+                >
+                    Add
+                </button>
             </div>
             <div>
                 <h2 className="text-lg font-semibold mb-2">
-                    {currentTable.charAt(0).toUpperCase() + currentTable.slice(1)} Table
+                    {currentTable.charAt(0).toUpperCase() +
+                        currentTable.slice(1)}{" "}
+                    Table
                 </h2>
                 {entries?.map((entry: Entry) => (
                     <div key={entry.id} className="mb-2 flex items-center">
                         {editingEntry?.id === entry.id ? (
                             <>
-                                <input
-                                    type="text"
+                                <textarea
                                     value={editingEntry.data}
-                                    onChange={(e) => setEditingEntry({ ...editingEntry, data: e.target.value })}
+                                    onChange={(e) =>
+                                        setEditingEntry({
+                                            ...editingEntry,
+                                            data: e.target.value,
+                                        })
+                                    }
                                     className="border p-2 mr-2 flex-grow"
+                                    rows={4}
                                 />
                                 {currentTable === "info" && (
                                     <select
                                         value={editingEntry.type}
-                                        onChange={(e) => setEditingEntry({ ...editingEntry, type: e.target.value })}
+                                        onChange={(e) =>
+                                            setEditingEntry({
+                                                ...editingEntry,
+                                                type: e.target.value,
+                                            })
+                                        }
                                         className="border p-2 mr-2"
                                     >
                                         <option value="music">Music</option>
-                                        <option value="anime">Anime & Manga</option>
+                                        <option value="anime">
+                                            Anime & Manga
+                                        </option>
                                         <option value="video">Video</option>
                                     </select>
                                 )}
                             </>
                         ) : (
                             <>
-                                <span className="mr-2 flex-grow">{entry.data}</span>
-                                {currentTable === "info" && <span className="mr-2">{entry.type}</span>}
+                                <span className="mr-2 flex-grow whitespace-pre-wrap break-all border p-2">
+                                    {entry.data}
+                                </span>
+                                {currentTable === "info" && (
+                                    <span className="mr-2">{entry.type}</span>
+                                )}
                             </>
                         )}
-                        <button onClick={() => setEditingEntry(entry)} className="text-blue-500 mr-2">Edit</button>
-                        <button onClick={() => handleDelete(entry.id)} className="text-red-500 mr-2">Delete</button>
+                        <button
+                            onClick={() => setEditingEntry(entry)}
+                            className="text-blue-500 mr-2"
+                        >
+                            Edit
+                        </button>
+                        <button
+                            onClick={() => handleDelete(entry.id)}
+                            className="text-red-500 mr-2"
+                        >
+                            Delete
+                        </button>
                         {editingEntry?.id === entry.id && (
-                            <button onClick={handleUpdate} className="text-green-500">Save</button>
+                            <button
+                                onClick={handleUpdate}
+                                className="text-green-500"
+                            >
+                                Save
+                            </button>
                         )}
                     </div>
                 ))}

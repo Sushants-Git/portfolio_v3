@@ -53,7 +53,9 @@ function renderContentWithDate(rows: Omit<Row, "type">[]) {
             <div className="text-sm" key={rows[0].record_time}>
                 {dayjs(rows[0].record_time).format("DD MMM")}
                 {rows.map((item) => (
-                    <div key={item.id}>- {parse_text_with_links(item.data)}</div>
+                    <div key={item.id}>
+                        - {parse_text_with_links(item.data)}
+                    </div>
                 ))}
             </div>
         );
@@ -125,5 +127,18 @@ export function parse_text_with_links(text: string): React.ReactNode {
         }
     }
 
-    return <span>{content} </span>;
+    if (content.length) {
+        let first = content[0];
+        let last = content[content.length - 1];
+
+        if (typeof first == "string") {
+            content[0] = first.trim();
+        }
+
+        if (typeof last == "string") {
+            content[content.length - 1] = last.trim();
+        }
+    }
+
+    return <span className="whitespace-pre-wrap">{content}</span>;
 }
