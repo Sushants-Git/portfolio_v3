@@ -37,26 +37,32 @@ export function DateGrouper({ rows }: { rows: Omit<Row, "type">[] }) {
         dg.push(renderContentWithDate(temp));
     }
 
-    return dg;
+    return <span className="flex flex-col gap-5">{dg}</span>;
 }
 
 function renderContentWithDate(rows: Omit<Row, "type">[]) {
     if (rows.length === 1) {
         return (
             <div key={rows[0].id} className="text-sm">
-                {dayjs(rows[0].record_time).format("DD MMM")} -{" "}
-                {parse_text_with_links(rows[0].data)}
+                <span className="lili-code">
+                    {dayjs(rows[0].record_time).format("DD MMM")}
+                </span>{" "}
+                → {parse_text_with_links(rows[0].data)}
             </div>
         );
     } else {
         return (
             <div className="text-sm" key={rows[0].record_time}>
-                {dayjs(rows[0].record_time).format("DD MMM")}
-                {rows.map((item) => (
-                    <div key={item.id}>
-                        - {parse_text_with_links(item.data)}
-                    </div>
-                ))}
+                <span className="lili-code">
+                    {dayjs(rows[0].record_time).format("DD MMM")}
+                </span>
+                <div className="flex flex-col gap-1 mt-2">
+                    {rows.map((item) => (
+                        <div key={item.id}>
+                            → {parse_text_with_links(item.data)}
+                        </div>
+                    ))}
+                </div>
             </div>
         );
     }
