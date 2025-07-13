@@ -4,6 +4,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
+                inter: ["Inter", "serif"],
                 lexend: ["Lexend", "serif"],
                 "geist-mono": ["Geist Mono", "monospace"],
             },

@@ -19,10 +19,6 @@
     filter: grayscale(0%);
 }
 
-.parsed-text {
-
-}
-
 .shadow-tooltip {
     --ds-shadow-border: 0 0 0 1px rgba(0, 0, 0, 0.08);
     --ds-shadow-tooltip: var(--ds-shadow-border),

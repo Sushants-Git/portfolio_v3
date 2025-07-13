@@ -5,18 +5,11 @@ import React from "react";
 import { DateGrouper, Row } from "../utils/fn";
 import LoadingSpinner from "../components/LoadingSpinner";
 
-const sleep = () => {
-    return new Promise((res) => {
-        setTimeout(() => {
-            res(null);
-        }, 1000);
-    });
-};
-
-
 async function fetch_data() {
-    const response = await supabase.from("learning").select().order("record_time", {ascending: false});
-    await sleep();
+    const response = await supabase
+        .from("learning")
+        .select()
+        .order("record_time", { ascending: false });
     return response.data;
 }
 
@@ -43,12 +36,13 @@ export default function Learning() {
         );
     }
 
-
     return (
         <section className="font-geist-mono text-lexend-grey mx-auto max-w-3xl px-6 pb-24 text-base/[150%] sm:pb-32 lg:px-10">
-            <Box text={<span>Learning Log Book</span>}>
-                <div className="flex flex-col gap-2">{generate_page}</div>
-            </Box>
+            <div>{generate_page}</div>
+            {
+                //<Box text={<span>Learning Log Book</span>}>
+                //</Box>
+            }
         </section>
     );
 }
