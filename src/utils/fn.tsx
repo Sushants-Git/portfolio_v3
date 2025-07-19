@@ -1,5 +1,4 @@
 import React from "react";
-import { SimpleLink } from "./link";
 import dayjs from "dayjs";
 import Box from "./box";
 
